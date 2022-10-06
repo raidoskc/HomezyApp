@@ -1,0 +1,40 @@
+### GET All Pruducts Request on Products Route
+GET http://localhost:3000/Products
+
+### PUT a Product on Products Route
+POST http://localhost:3000/Products
+Content-Type: application/json
+
+{
+    "name": "kati",
+    "price": 1000
+}
+
+### PUT a Product on Products Route
+POST http://localhost:3000/Products
+Content-Type: application/x-www-form-urlencoded
+
+name=kati2&price=2000
+
+###
+GET http://localhost:3000/Products/633ee263fae35d149cac8324
+
+###
+PATCH http://localhost:3000/Products/633ee263fae35d149cac8324
+Content-Type: application/json
+
+{
+    "name": "MMMMmmmm"
+}
+
+
+###
+DELETE http://localhost:3000/Products/633ec1288edb18092c09619a
+
+
+###Error
+GET http://localhost:3000/xz
+
+
+###
+GET http://localhost:3000/test?name=imac&price=1000
