@@ -2,13 +2,17 @@ const express = require("express");
 const app = express();
 
 const mongoose = require('mongoose');
+const createError = require("http-errors")
 
 const ProductRoute = require('./Routes/Product.route');
+
+
 
 //For connection-Type in POST
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
+//Connection to Database
 //mongodb+srv://SKGTEAMA:<password>@cluster0.edcw4wv.mongodb.net/?retryWrites=true&w=majority
 //User: SKGTEAMA
 //pass: mmLU4bvWUCknpFRe
@@ -25,14 +29,23 @@ mongoose.connect('mongodb+srv://cluster0.edcw4wv.mongodb.net/',{
     console.log('Connecting to Database....')
 })
 
+//Use Routes..localhost:3000/Products/  ==> go to ProductRoute
 app.use('/Products', ProductRoute);
 
+//Catch Errors about URI (404) and pass it to error hundler 
 app.use((req,res,next)=>{
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+    //Create Manual the error 
+    //const err = new Error('Not Found');
+    //err.status = 404;
+    //next(err);
+
+
+    //or use the createError
+    next(createError(404, 'Not found'))
 });
 
+
+//Error Hundler
 app.use((err,req,res,next)=>{
     res.status(err.status || 500);
     res.send({
@@ -42,24 +55,6 @@ app.use((err,req,res,next)=>{
         }
     })
 });
-
-
-/*app.use((req, res, next) => {
-    res.status(404);
-    res.send({
-        error: 'Not Found'
-    })
-})*/
-
-/*app.get("/", (req, res) => {
-  console.log("Req URL: " + req.url);
-  console.log("Req method: " + req.method);
-  res.send("Home Route..I am listening on port 3000");
-});
-
-app.post("/", (req, res) => {});
-
-app.delete("/", (req, res) => {});*/
 
 app.listen(3000, () => {
   console.log("Hello World..I am listening on port 3000");

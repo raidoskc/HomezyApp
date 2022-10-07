@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+//Sheama της βάσης στο ATLAS.
 var ProductScheama = new Schema({
   name: {
     type: String,
@@ -13,5 +15,6 @@ var ProductScheama = new Schema({
 });
 
 
+//Table=Collections ==> products
 const Product = mongoose.model('product', ProductScheama);
 module.exports = Product;

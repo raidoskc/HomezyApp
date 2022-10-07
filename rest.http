@@ -17,7 +17,7 @@ Content-Type: application/x-www-form-urlencoded
 name=kati2&price=2000
 
 ###
-GET http://localhost:3000/Products/633ee263fae35d149cac8324
+GET http://localhost:3000/Products/633ec2ce89dff0225c963f32
 
 ###
 PATCH http://localhost:3000/Products/633ee263fae35d149cac8324
