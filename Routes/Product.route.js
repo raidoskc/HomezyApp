@@ -9,7 +9,17 @@ const Product = require("../Models/Product.model");
 //Getting a list of all products
 router.get("/", async (req, res, next) => {
   try {
-    const results = await Product.find({}, { name: 1, price: 1 });
+    const results = await Product.find({}, { 
+      Name: 1, 
+      Price: 1, 
+      Description: 1,
+      Sale: 1,
+      Photo: 1,
+      ZipCode: 1,
+      Region: 1,
+      Roof: 1,
+      Area: 1,
+      Bedrooms: 1 });
     res.send(results);
   } catch (error) {
     console.log(error.message);
