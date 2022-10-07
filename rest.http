@@ -28,6 +28,7 @@ name=kati2&price=2000
 ###
 GET http://localhost:3000/Products/63404a3409cfea2ec866a9ba
 
+
 ###
 PATCH http://localhost:3000/Products/633ee263fae35d149cac8324
 Content-Type: application/json
