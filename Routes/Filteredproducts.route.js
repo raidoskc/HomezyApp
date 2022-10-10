@@ -36,4 +36,4 @@ router.get("/:query", async (req, res) => {
     res.send({filter});
 });
 
-module.exports = router;
+module.exports = filters;

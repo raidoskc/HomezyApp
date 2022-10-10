@@ -32,6 +32,8 @@ mongoose.connect('mongodb+srv://cluster0.edcw4wv.mongodb.net/',{
 //Use Routes..localhost:3000/Products/  ==> go to ProductRoute
 app.use('/Products', ProductRoute);
 
+
+//Routes for search & filters
 app.use('/filter', filteredProductsRoute);
 
 //Catch Errors about URI (404) and pass it to error hundler 
