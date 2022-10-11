@@ -27,11 +27,32 @@ router.get('/polisi', async (req, res) => {
 router.get("/:query", async (req, res) => {
 
     const filter = await Product.find(req.query);
-
+    
     if(!filter) {
         res.status(500).json({success: false})
-    }
+    } 
     res.send({filter});
 });
 
-module.exports = filters;
+
+//experimental parameter range queries
+router.get("/:pricemin/:pricemax", async (req, res) => {
+    /*const range = await Product.find({
+        "Price": {
+            "$gte": "req.pricemin",
+            "$lt": "req.pricemax"
+        }
+    }); */
+
+    const pricemin = req.params.pricemin;
+    const pricemax = req.params.pricemax;
+
+    const range = await Product.find({ Price: { $gte: pricemin, $lte: pricemax }});
+
+    if(!range) {
+        res.status(500).json({success: false})
+    }
+    res.send({range});
+});
+
+module.exports = router;
