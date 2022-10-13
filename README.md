@@ -2,7 +2,7 @@
 Besic Real Estate Android App
 
 ## Εγκατάσταση των npm πακετων
-npm init
+npm i
 
 ## Run το API
 npm start
@@ -11,6 +11,6 @@ npm start
 ==============================
 ==============================
 
-### Brunches
-1.    Brunch => 1-Error-Hundler
-      Pull Request => DONE
+### Brunches 5
+No-Bot => GET ALL, GET ONE, SEARCH, FILTER UPDATE, DELETE, POST
+No Bot yet.
