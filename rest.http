@@ -6,16 +6,16 @@ POST http://localhost:3000/Products
 Content-Type: application/json
 
 {
-    "Name": "Ζωγραφου 1222",
-    "Description": "mmmmmmm5mm Ζωγραφου mmmmmmmmmm 555555",
-    "Price": 300,
+    "Name": "Περιστερ1 2",
+    "Description": "test 2 mmmmmmmmmm 555555",
+    "Price": 100000,
     "Sale": true,
-    "Photo": "https://www.google.com/",
-    "ZipCode": 54989,
+    "Photo": "https://i.pinimg.com/736x/4f/d3/d7/4fd3d766838da8d46930d4855a224535--gdansk-poland-crazy-houses.jpg",
+    "ZipCode": 11111,
     "Region": "Athens",
-    "Roof": 4,
-    "Area": 50,
-    "Bedrooms": 2
+    "Roof": 3,
+    "Area": 110,
+    "Bedrooms": 3
 }
 
 
@@ -26,14 +26,16 @@ Content-Type: application/x-www-form-urlencoded
 name=kati2&price=2000
 
 ###
-GET http://localhost:3000/Products/63404a3409cfea2ec866a9ba
+GET http://localhost:3000/Products/6344342cb584adcb80eb47fa
 
 ###
-PATCH http://localhost:3000/Products/633ee263fae35d149cac8324
+PATCH http://localhost:3000/Products/6344342cb584adcb80eb47fa
 Content-Type: application/json
 
 {
-    "name": "MMMMmmmm"
+    
+    "Area": 21
+    
 }
 
 
