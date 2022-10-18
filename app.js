@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const createError = require("http-errors")
 
 const ProductRoute = require('./Routes/Product.route');
-const filteredProductsRoute = require('./Routes/Filteredproducts.route');
+const testparams= require('./Routes/filteredProducts');
 
 
 //For connection-Type in POST
@@ -32,9 +32,9 @@ mongoose.connect('mongodb+srv://cluster0.edcw4wv.mongodb.net/',{
 //Use Routes..localhost:3000/Products/  ==> go to ProductRoute
 app.use('/Products', ProductRoute);
 
-
 //Routes for search & filters
-app.use('/filter', filteredProductsRoute);
+app.use('/search', testparams);
+
 
 //Catch Errors about URI (404) and pass it to error hundler 
 app.use((req,res,next)=>{
