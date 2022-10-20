@@ -7,6 +7,7 @@ const createError = require("http-errors");
 
 const ProductRoute = require("./api/routes/products");
 const ProductRouteSearch = require("./api/routes/search");
+const ChatbotRoute = require("./api/routes/chatbot");
 
 mongoose
   .connect("mongodb+srv://cluster0.edcw4wv.mongodb.net/", {
@@ -72,6 +73,7 @@ app.use((req, res, next) => {
 // Routes which should handle requests
 app.use("/Products", ProductRoute);
 app.use("/Search", ProductRouteSearch);
+app.use("/Chatbot", ChatbotRoute);
 
 app.use((req, res, next) => {
   /*const error = new Error("Not found");
