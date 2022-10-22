@@ -6,17 +6,56 @@ const dialogflow = require("@google-cloud/dialogflow");
 const { WebhookClient } = require('dialogflow-fulfillment');
 
 router.post("/", (request, response) =>{
-    const _agent = new WebhookClient({request: request, response: response});
+    const agent = new WebhookClient({ request: req, response: res });
 
 
-    function respond(agent) {
-        return agent.add("ok thats great you finished from back end");
-    };
+  const reqData = req.body.queryResult.outputContexts[0].parameters;
+  //console.log("dd:" + JSON.stringify(reqData))
+  const data = {
+    sale: false,
+    region: reqData.city,
+    price: {
+      "[$lte]": reqData.maxPrice,
+      "[$gte]": reqData.minPrice,
+    },
+    Roof: reqData.floor,
+    Area: {
+      "[$lte]": reqData.sqMax,
+      "[$gte]": reqData.sqMin,
+    },
+  };
 
-    let intents = new Map();
+  var url = "http://localhost:3000/Search?page=1";
+  for (let i in data) {
+    if (typeof data[i] == "object") {
+      for (let j in data[i]) {
+        if (data[i][j] != undefined) {
+          if (data[i][j] !== "") {
+            url += "&" + i + j + "=" + data[i][j];
+          }
+        }
+      }
+    } else {
+      if (data[i] != undefined) {
+        if (data[i] !== "") {
+          url += "&" + i + "=" + data[i];
+        }
+      }
+    }
+  }
 
-    intents.set("finalize-yes", respond);
-    _agent.handleRequest(intents);
+ 
+  console.log("data:   " + JSON.stringify(data));
+  function findHome(agent) {
+    agent.add("Webhook answer!  ==>  " + url);
+  }
+  
+
+  var intentMap = new Map();
+  intentMap.set("Default Welcome Intent", Default);
+  intentMap.set("finalize-yes", findHome);
+  intentMap.set("optional filters", findHome);
+  agent.handleRequest(intentMap);
     
 });
 
