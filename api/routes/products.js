@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
 const Product = require("../models/product");
+require("dotenv").config();
+
+const checkAuth = require("../CheckAuth/checkAuth");
 
 //Upload Image
 //Location to store
@@ -36,10 +39,11 @@ const upload = multer({
 });
 
 //View all Products in pagianation
-router.get("/:page", (req, res, next) => {
+router.get("/", (req, res, next) => {
   const options = {
     page: req.params.page,
     select: "_id Name Price Photo Area Region",
+    page: req.query.page,
     sort: { Price: 1 },
   };
   Product.paginate({}, options)
@@ -57,7 +61,7 @@ router.get("/:page", (req, res, next) => {
             _id: doc._id,
             request: {
               type: "GET",
-              url: "http://localhost:3000/products/Home/" + doc._id,
+              url: process.env.URL + process.env.PORT + "/products/" + doc._id,
             },
           };
         }),
@@ -90,12 +94,12 @@ router.get("/:page", (req, res, next) => {
 });
 
 //POST new Product House with photo
-router.post("/", upload.single("Photo"), (req, res, next) => {
+router.post("/", checkAuth, upload.single("Photo"), (req, res, next) => {
   const product = new Product({
     Name: req.body.Name,
     Description: req.body.Description,
     Price: req.body.Price,
-    Photo: "http://localhost:3000/" + req.file.path,
+    Photo: process.env.URL + process.env.PORT + "/" + req.file.path,
     ZipCode: req.body.ZipCode,
     Sale: req.body.Sale,
     Region: req.body.Region,
@@ -117,7 +121,7 @@ router.post("/", upload.single("Photo"), (req, res, next) => {
           Photo: result.Photo,
           request: {
             type: "GET",
-            url: "http://localhost:3000/Products/" + result._id,
+            url: process.env.URL + process.env.PORT + "/Products/" + result._id,
           },
         },
       });
@@ -131,7 +135,7 @@ router.post("/", upload.single("Photo"), (req, res, next) => {
 });
 
 //View one Product only with all fields
-router.get("/Home/:productId", (req, res, next) => {
+router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
     .select()
@@ -143,7 +147,7 @@ router.get("/Home/:productId", (req, res, next) => {
           product: doc,
           request: {
             type: "GET",
-            url: "http://localhost:3000/products",
+            url: process.env.URL + process.env.PORT + "/products",
           },
         });
       } else {
@@ -161,7 +165,7 @@ router.get("/Home/:productId", (req, res, next) => {
 });
 
 //Update Product..No image
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", checkAuth, (req, res, next) => {
   const id = req.params.id;
   /*const updateOps = {};
   for (const ops of req.body) {
@@ -174,7 +178,7 @@ router.patch("/:id", (req, res, next) => {
         message: "Product updated",
         request: {
           type: "GET",
-          url: "http://localhost:3000/products/" + id,
+          url: process.env.URL + process.env.PORT + "/products/" + id,
         },
       });
     })
@@ -187,7 +191,7 @@ router.patch("/:id", (req, res, next) => {
 });
 
 //Delete a Product
-router.delete("/:productId", (req, res, next) => {
+router.delete("/:productId", checkAuth, (req, res, next) => {
   const id = req.params.productId;
   Product.remove({ _id: id })
     .exec()
@@ -196,8 +200,8 @@ router.delete("/:productId", (req, res, next) => {
         message: "Product deleted",
         request: {
           type: "POST",
-          url: "http://localhost:3000/products",
-          body: { name: "String", price: "Number" },
+          url: process.env.URL + process.env.PORT + "/products",
+          body: { name: result.Name, price: result.Price },
         },
       });
     })

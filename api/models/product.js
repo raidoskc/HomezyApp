@@ -21,7 +21,7 @@ const ProductSchema = mongoose.Schema({
   },
   Photo: {
     type: String,
-    Default: "Null",
+    Default: null,
   },
   ZipCode: {
     type: Number,

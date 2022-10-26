@@ -5,25 +5,31 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const createError = require("http-errors");
 
+require("dotenv").config();
+
 const ProductRoute = require("./api/routes/products");
 const ProductRouteSearch = require("./api/routes/search");
+const ChatBotRoute = require("./api/routes/ChatBot");
+const userRoutes = require("./api/routes/user");
 
 mongoose
   .connect("mongodb+srv://cluster0.edcw4wv.mongodb.net/", {
-    dbName: "RESTfulAPI_Homezy",
-    user: "SKGTEAMA",
-    pass: "mmLU4bvWUCknpFRe",
+    dbName: process.env.DB_NAME,
+    user: process.env.DB_USERNAME,
+    pass: process.env.DB_USER_PASSWORD,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     //useFindAndModify: false,
   })
   .then(() => {
-    console.log("Connecting to Database....");
+    console.log(
+      "Connecting to Database " + process.env.DB_NAME + "...Please wait."
+    );
   })
   .catch((err) => console.log(err.message));
 
 mongoose.connection.on("connected", () => {
-  console.log("Mongoose connected to DB RESTfulAPI_Homezy...");
+  console.log("Mongoose connected to " + process.env.DB_NAME);
 });
 
 mongoose.connection.on("error", (err) => {
@@ -44,8 +50,6 @@ process.on("SIGINT", () => {
   });
 });
 
-mongoose.Promise = global.Promise;
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -56,22 +60,13 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-  next();
-});
-
 // Routes which should handle requests
 app.use("/Products", ProductRoute);
 app.use("/Search", ProductRouteSearch);
+//Chatbot
+app.use("/Chatbot", ChatBotRoute);
+//Login
+app.use("/User", userRoutes);
 
 app.use((req, res, next) => {
   /*const error = new Error("Not found");

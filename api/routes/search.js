@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
-
 const Product = require("../models/product");
 
+require("dotenv").config();
+
 //Search and filters
-router.get("/:page", (req, res, next) => {
+router.get("/", (req, res, next) => {
   //Options for the paginate and find
   const options = {
-    page: req.params.page,
+    //page: req.params.page,
     select: "_id Name Price Photo Area Region Roof",
     sort: { Roof: 1 },
+    page: req.query.page,
   };
 
   Product.paginate(req.query, options)
@@ -26,7 +28,7 @@ router.get("/:page", (req, res, next) => {
             Roof: doc.Roof,
             request: {
               type: "GET",
-              url: "http://localhost:3000/products/Home/" + doc._id,
+              url: process.env.URL + process.env.PORT + "/products/" + doc._id,
             },
           };
         }),
