@@ -28,7 +28,7 @@ router.get("/", (req, res, next) => {
             Roof: doc.Roof,
             request: {
               type: "GET",
-              url: process.env.URL + process.env.PORT + "/products/" + doc._id,
+              url: process.env.URL + "/products/" + doc._id,
             },
           };
         }),
