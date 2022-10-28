@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
 
   //console.log(JSON.parse(data))
 
-  var url = process.env.URL + process.env.PORT + "/Search?page=1";
+  var url = process.env.URL + "/Search?page=1";
   for (let i in finalData) {
     if (
       typeof finalData[i] == "object" &&
