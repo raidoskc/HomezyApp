@@ -13,7 +13,7 @@ const ChatBotRoute = require("./api/routes/ChatBot");
 const userRoutes = require("./api/routes/user");
 
 mongoose
-  .connect("mongodb+srv://cluster0.edcw4wv.mongodb.net/", {
+  .connect(process.env.DB_URL, {
     dbName: process.env.DB_NAME,
     user: process.env.DB_USERNAME,
     pass: process.env.DB_USER_PASSWORD,
