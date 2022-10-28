@@ -100,13 +100,13 @@ router.post("/", async (req, res) => {
 
   function findHome(agent) {
     agent.add(
-      process.env.URL + process.env.PORT + "/Products/" + houses[0]._id
+      process.env.URL + "/Products/" + houses[0]._id
     );
     agent.add(
-      process.env.URL + process.env.PORT + "/Products/" + houses[1]._id
+      process.env.URL  + "/Products/" + houses[1]._id
     );
     agent.add(
-      process.env.URL + process.env.PORT + "/Products/" + houses[2]._id
+      process.env.URL  + "/Products/" + houses[2]._id
     );
     agent.add("For more...");
     agent.add(url);
