@@ -61,7 +61,7 @@ router.get("/", (req, res, next) => {
             _id: doc._id,
             request: {
               type: "GET",
-              url: process.env.URL + process.env.PORT + "/products/" + doc._id,
+              url: process.env.URL + "/products/" + doc._id,
             },
           };
         }),
@@ -121,7 +121,7 @@ router.post("/", checkAuth, upload.single("Photo"), (req, res, next) => {
           Photo: result.Photo,
           request: {
             type: "GET",
-            url: process.env.URL + process.env.PORT + "/Products/" + result._id,
+            url: process.env.URL  + "/Products/" + result._id,
           },
         },
       });
@@ -147,7 +147,7 @@ router.get("/:productId", (req, res, next) => {
           product: doc,
           request: {
             type: "GET",
-            url: process.env.URL + process.env.PORT + "/products",
+            url: process.env.URL + "/products",
           },
         });
       } else {
@@ -178,7 +178,7 @@ router.patch("/:id", checkAuth, (req, res, next) => {
         message: "Product updated",
         request: {
           type: "GET",
-          url: process.env.URL + process.env.PORT + "/products/" + id,
+          url: process.env.URL  + "/products/" + id,
         },
       });
     })
@@ -200,7 +200,7 @@ router.delete("/:productId", checkAuth, (req, res, next) => {
         message: "Product deleted",
         request: {
           type: "POST",
-          url: process.env.URL + process.env.PORT + "/products",
+          url: process.env.URL + "/products",
           body: { name: result.Name, price: result.Price },
         },
       });
