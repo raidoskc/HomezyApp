@@ -16,7 +16,7 @@ const ProductSchema = mongoose.Schema({
     required: true,
   },
   Sale: {
-    type: String,
+    Sale: String,
     default: "rent",
   },
   Photo: {
