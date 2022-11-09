@@ -54,8 +54,8 @@ router.post("/", async (req, res) => {
 
   var finalData = {};
   finalData = cleanDeep(data);
-  console.log("finaldata: " + data.Sale)
-  console.log("finaldata: " + data.Region)
+  //console.log("finaldata: " + data.Sale)
+  //console.log("finaldata: " + data.Region)
 
   //console.log(JSON.parse(data))
 

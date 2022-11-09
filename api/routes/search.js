@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/product");
+const cleanDeep = require("clean-deep");
 
 require("dotenv").config();
 
@@ -15,7 +16,31 @@ router.get("/", (req, res, next) => {
     page: req.query.page,
   };
 
-  Product.paginate(req.query, options)
+  var query = req.query
+
+  function replacer(key, value) {
+    if (
+      value === "" ||
+      value === null ||
+      value === undefined ||
+      value === "null"
+    ) {
+      delete key;
+    } else {
+      return value;
+    }
+  }
+
+  const dataString = JSON.stringify(query, replacer);
+  //console.log("dddddddd:  " + dataString)
+  var QueryParsed = JSON.parse(dataString);
+
+  var finalData = {};
+  finalData = cleanDeep(QueryParsed);
+  //console.log("mm:: " +  JSON.stringify(finalData, replacer));
+
+
+  Product.paginate(finalData, options)
     .then((result) => {
       const response = {
         products: result.docs.map((doc) => {
