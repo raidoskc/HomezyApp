@@ -41,15 +41,11 @@ router.post("/", async (req, res) => {
   const data = {
     Sale: reqData.type,
     Region: reqData.city,
-    Price: {
-      $lte: dataParsed.maxPrice,
-      $gte: dataParsed.minPrice,
-    },
+    maxPrice: dataParsed.maxPrice,
+    minPrice: dataParsed.minPrice,
     Roof: dataParsed.floor,
-    Area: {
-      $lte: dataParsed.sqMax,
-      $gte: dataParsed.sqMin,
-    },
+    sqMax: dataParsed.sqMax,
+    sqMin: dataParsed.sqMin,
   };
 
   var finalData = {};
@@ -59,7 +55,7 @@ router.post("/", async (req, res) => {
 
   //console.log(JSON.parse(data))
 
-  var url = process.env.URL + process.env.PORT + "/Search?page=1";
+  var url = process.env.URL + "/Search?page=1";
   for (let i in finalData) {
     if (
       typeof finalData[i] == "object" &&
@@ -89,7 +85,6 @@ router.post("/", async (req, res) => {
   //console.log("qqqqq: " + JSON.stringify(queryParsed, replacer))
   //console.log("data:   " + JSON.stringify(data, replacer));
   console.log("url:   " + url);
-
   try {
     var houses = await product
       .find({ Roof: 4 })

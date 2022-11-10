@@ -47,7 +47,7 @@ router.get("/", (req, res, next) => {
     Roof: req.query.Roof,
     Area: {
       $lte: req.query.sqMax,
-      $lte: req.query.sqMin,
+      $gte: req.query.sqMin,
     },
     Bedrooms: req.query.Bedrooms
   };
