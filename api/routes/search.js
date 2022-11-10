@@ -40,11 +40,15 @@ router.get("/", (req, res, next) => {
   const data = {
     Sale: req.query.Sale,
     Region: req.query.Region,
-    "Price[$lte]": req.query.maxPrice,
-    "Price[$gte]": req.query.minPrice,
+    Price: {
+      $lte : req.query.maxPrice,
+      $gte: req.query.minPrice,
+    },
     Roof: req.query.Roof,
-    "Area[$lte]": req.query.sqMax,
-    "Area[$lte]": req.query.sqMin,
+    Area: {
+      $lte: req.query.sqMax,
+      $lte: req.query.sqMin,
+    },
     Bedrooms: req.query.Bedrooms
   };
 
