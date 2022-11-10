@@ -59,6 +59,7 @@ router.get("/", (req, res, next) => {
             Area: doc.Area,
             Region: doc.Region,
             _id: doc._id,
+            Sale: doc.Sale,
             request: {
               type: "GET",
               url: process.env.URL + "/products/" + doc._id,
