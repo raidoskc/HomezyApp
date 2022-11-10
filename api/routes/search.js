@@ -31,13 +31,26 @@ router.get("/", (req, res, next) => {
     }
   }
 
+  
+
   const dataString = JSON.stringify(query, replacer);
   //console.log("dddddddd:  " + dataString)
   var QueryParsed = JSON.parse(dataString);
 
+  const data = {
+    Sale: req.query.Sale,
+    Region: req.query.Region,
+    "Price[$lte]": req.query.maxPrice,
+    "Price[$gte]": req.query.minPrice,
+    Roof: req.query.Roof,
+    "Area[$lte]": req.query.sqMax,
+    "Area[$lte]": req.query.sqMin,
+    Bedrooms: req.query.Bedrooms
+  };
+
   var finalData = {};
-  finalData = cleanDeep(QueryParsed);
-  //console.log("mm:: " +  JSON.stringify(finalData, replacer));
+  finalData = cleanDeep(data);
+  console.log("mm:: " +  JSON.stringify(finalData, replacer));
 
 
   Product.paginate(finalData, options)
