@@ -50,6 +50,7 @@ router.get("/", (req, res, next) => {
             Photo: doc.Photo,
             Area: doc.Area,
             Region: doc.Region,
+            Sale: doc.Sale,
             _id: doc._id,
             Roof: doc.Roof,
             request: {
