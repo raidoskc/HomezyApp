@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   const agent = new WebhookClient({ request: req, response: res });
 
   
-  const  reqData = req.body.queryResult.outputContexts[2].parameters;
+  const  reqData = req.body.queryResult.outputContexts[1].parameters;
 
   function replacer(key, value) {
     if (
@@ -84,6 +84,7 @@ router.post("/", async (req, res) => {
   //const queryParsed = JSON.parse(query)
   //console.log("qqqqq: " + JSON.stringify(queryParsed, replacer))
   //console.log("data:   " + JSON.stringify(data, replacer));
+  console.log("kkkkk: " + finalData.Sale + " " + finalData.Region + " " +finalData.maxPrice + " " +finalData.minPrice + " " +finalData.Roof + " " +finalData.sqMin + " " + finalData.sqMax)
   console.log("url:   " + url);
   try {
     var houses = await product
@@ -94,6 +95,8 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
+
+  var returnedData = finalData.Sale + "&" + finalData.Region + "&" +finalData.minPrice + "&" +finalData.maxPrice 
 
 
   function findHome(agent) {
@@ -107,7 +110,7 @@ router.post("/", async (req, res) => {
       process.env.URL + process.env.PORT + "/Products/" + houses[2]._id
     );
     agent.add("For more...");*/
-    agent.add(url);
+    agent.add(returnedData);
   }
   /*function Default(agent) {
     var data = {
@@ -151,8 +154,8 @@ router.post("/", async (req, res) => {
 
   var intentMap = new Map();
   //intentMap.set("Default Welcome Intent", Default);
-  intentMap.set("finalize-yes", findHome);
-  intentMap.set("optional filters", findHome);
+  intentMap.set("price-range-finalize", findHome);
+  intentMap.set("price-range-finalize", findHome);
   agent.handleRequest(intentMap);
 });
 
