@@ -42,7 +42,7 @@ const upload = multer({
 router.get("/", (req, res, next) => {
   const options = {
     page: req.params.page,
-    select: "_id Name Price Photo Area Region",
+    select: "_id Name Price Photo Area Region Description",
     page: req.query.page,
     limit: 70,
     sort: { Price: 1 },
@@ -59,6 +59,7 @@ router.get("/", (req, res, next) => {
             Photo: doc.Photo,
             Area: doc.Area,
             Region: doc.Region,
+            Description: doc.Description,
             _id: doc._id,
             request: {
               type: "GET",
