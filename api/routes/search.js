@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
   //Options for the paginate and find
   const options = {
     //page: req.params.page,
-    select: "_id Name Price Photo Area Region Roof",
+    select: "_id Name Price Photo Area Region Roof Description",
     sort: { Roof: 1 },
     limit: 70,
     page: req.query.page,
@@ -67,6 +67,7 @@ router.get("/", (req, res, next) => {
             Photo: doc.Photo,
             Area: doc.Area,
             Region: doc.Region,
+            Description: doc.Description,
             _id: doc._id,
             Roof: doc.Roof,
             request: {
