@@ -96,12 +96,12 @@ router.get("/", (req, res, next) => {
 });
 
 //POST new Product House with photo
-router.post("/", upload.single("Photo"), (req, res, next) => {
+router.post("/", (req, res, next) => {
   const product = new Product({
     Name: req.body.Name,
     Description: req.body.Description,
     Price: req.body.Price,
-    Photo: process.env.URL + process.env.PORT + "/" + req.file.path,
+    Photo: req.body.Photo,
     ZipCode: req.body.ZipCode,
     Sale: req.body.Sale,
     Region: req.body.Region,
