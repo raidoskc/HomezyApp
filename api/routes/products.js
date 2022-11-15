@@ -116,16 +116,7 @@ router.post("/", upload.single("Photo"), (req, res, next) => {
       console.log(result);
       res.status(201).json({
         message: "Created product successfully",
-        createdProduct: {
-          Name: result.Name,
-          Price: result.Price,
-          _id: result._id,
-          Photo: result.Photo,
-          request: {
-            type: "GET",
-            url: process.env.URL  + "/Products/" + result._id,
-          },
-        },
+        _id: result._id,
       });
     })
     .catch((err) => {
