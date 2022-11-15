@@ -122,7 +122,7 @@ router.post("/", upload.single("Photo"), (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        message: err,
+        message: "error 500",
       });
     });
 });
