@@ -96,7 +96,7 @@ router.get("/", (req, res, next) => {
 });
 
 //POST new Product House with photo
-router.post("/", checkAuth, upload.single("Photo"), (req, res, next) => {
+router.post("/", upload.single("Photo"), (req, res, next) => {
   const product = new Product({
     Name: req.body.Name,
     Description: req.body.Description,
